@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Drawer, FlatButton, Paper, Toolbar, ToolbarTitle, TextField, RaisedButton, Snackbar } from 'material-ui';
-import { Redirect } from 'react-router-dom';
+import { Paper, Toolbar, ToolbarTitle, TextField, RaisedButton, Snackbar } from 'material-ui';
 import { app } from '../base.js';
 
 
@@ -30,10 +29,8 @@ class Header extends Component {
     handleLogin = () => {
         var email = this.refs.email.getValue();
         var password = this.refs.password.getValue();
-        var errorCode = '';
         var errorMessage = '';
         app.auth().signInWithEmailAndPassword(email, password).catch((error) => {
-            errorCode = error.code;
             errorMessage = error.message;
             this.setState({ snackbar: true, snackbarMessage: errorMessage });
         });
@@ -42,10 +39,12 @@ class Header extends Component {
     createAccount = () => {
         var email = this.refs.newEmail.getValue();
         var password = this.refs.newPassword.getValue();
-        var errorCode = '';
         var errorMessage = '';
-        app.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
-            errorCode = error.code;
+        app.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+            user.sendEmailVerification().then(() => {
+                console.log("verification sent")
+            })
+        }).catch((error) => {
             errorMessage = error.message;
             this.setState({ snackbar: true, snackbarMessage: errorMessage });
         });

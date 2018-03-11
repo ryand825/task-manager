@@ -1,28 +1,34 @@
-.App {
+ body {
+  overflow: hidden;
+}
+
+.circleHint {
+  border-radius: 50%;
+  /* background: radial-gradient(white, #81C784 25%, #81C784 100%); */
+  /* border: 30px solid blue; */
+  transform: translate(-50%, -50%);
+  transition: width .2s ease-in, height .2s ease-in;
+  text-align: left;
+}
+
+.circleBox{
+  height: 48px;
+  width: 48px;
+  z-index: -1;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.featureText{
+  font-family: sans-serif;
+  font-weight: bold;
+  max-width: 50px;
+  line-height: 0;
+  position: relative;
+  top: 25%;
+  left: 10%;
+  transition: font-size .2s ease-out .1s;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

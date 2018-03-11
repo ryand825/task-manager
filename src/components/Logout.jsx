@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import { app } from '../base'
+import { app} from '../base'
 
 class Logout extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             redirect: false
         }
@@ -13,8 +13,13 @@ class Logout extends Component {
     componentWillMount() {
         app.auth().signOut().then((user, error) => {
             this.setState({ redirect: true })
+            window.location.reload();
         });
     }
+
+    // componentWillUpdate(nextProps, nextState){
+    //     nextProps.removeBase();
+    // }
 
     render() {
         if (this.state.redirect === true) {

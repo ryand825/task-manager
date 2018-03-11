@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import { AppBar, Drawer, FlatButton, Paper, Toolbar, ToolbarTitle, TextField, RaisedButton, Snackbar } from 'material-ui';
-import uuid from 'uuid';
+import { Paper, Toolbar, ToolbarTitle, TextField, RaisedButton } from 'material-ui';
 
 const style = {
-    height: 'auto',
     width: 300,
     margin: 20,
-    textAlign: 'center',
     display: 'inline-block',
 };
 
@@ -26,22 +23,38 @@ class NewTaskSpace extends Component {
         }
     }
 
+    handleRedirectComplete = () => {
+        this.props.redirectComplete();
+    }
+
     render() {
+        if (this.props.redirect) {
+            this.handleRedirectComplete();
+            return <Redirect to="/" />
+        }
         return (
-            <Paper style={style}>
-                <Toolbar><ToolbarTitle text="Create New Task Space" /></Toolbar>
-                <TextField
-                    floatingLabelText="Task Name"
-                    type="text"
-                    ref='taskSpaceName'
-                /><br />
-                <RaisedButton
-                    type="submit"
-                    label="Create"
-                    primary={true}
-                    style={{ float: 'left', margin: '18px' }}
-                    onClick={this.handleNewTaskSpace} />
-            </Paper>
+            <div>
+                <Paper style={style}>
+                    <Toolbar><ToolbarTitle text="Create New Task Space" /></Toolbar>
+                    <TextField
+                        floatingLabelText="Task Space Name"
+                        type="text"
+                        ref='taskSpaceName'
+                    /><br />
+                    <RaisedButton
+                        type="submit"
+                        label="Create"
+                        primary={true}
+                        style={{ float: 'left', margin: '18px' }}
+                        onClick={this.handleNewTaskSpace} />
+                </Paper><br />
+
+                {!this.props.data ?
+                    <Paper style={{ display: 'inline-block', width: '300px', padding: '20px', borderRadius: "25px" }}>
+                        Create a new space to get started<br />
+                        A task space is where you will store and organize individual tasks. </Paper>
+                    : ''}
+            </div>
         )
     }
 }
